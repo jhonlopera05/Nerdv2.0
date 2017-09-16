@@ -5,22 +5,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private  String Correo,contraseña;
-
+    private  String Correop,contraseñap;
+    private TextView tv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        tv=(TextView) findViewById(R.id.tv);
 
         // Lo que se envia siempre s eextrae en el metodo oncreate
 
         Bundle extras= getIntent().getExtras();
+        Correop=extras.getString("correo");
+        contraseñap=extras.getString("contraseña");
 
-        Correo=extras.getString("correo");
+        tv.setText(Correop);
 
     }
 
@@ -39,9 +43,17 @@ public class MainActivity extends AppCompatActivity {
 
         switch (id){
             case R.id.mPerfil:
+
+                Intent intent1 = new Intent(this, PerfilActivity.class);
+                intent1.putExtra("mail",Correop);
+                intent1.putExtra("pass",contraseñap);
+                startActivity(intent1);
+
                 break;
             case R.id.mCerrar:
-                intent=new Intent(MainActivity.this,LoginActivity.class);
+                intent=new Intent(this,LoginActivity.class);
+                intent.putExtra("mail",Correop);
+                intent.putExtra("pass",contraseñap);
                 startActivity(intent);
                 finish();
                 break;
