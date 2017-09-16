@@ -45,15 +45,15 @@ public class MainActivity extends AppCompatActivity {
             case R.id.mPerfil:
 
                 Intent intent1 = new Intent(this, PerfilActivity.class);
-                intent1.putExtra("mail",Correop);
-                intent1.putExtra("pass",contraseñap);
+                intent1.putExtra("correo",Correop);
+                intent1.putExtra("contraseña",contraseñap);
                 startActivity(intent1);
 
                 break;
             case R.id.mCerrar:
                 intent=new Intent(this,LoginActivity.class);
-                intent.putExtra("mail",Correop);
-                intent.putExtra("pass",contraseñap);
+                intent.putExtra("correo",Correop);
+                intent.putExtra("contraseña",contraseñap);
                 startActivity(intent);
                 finish();
                 break;

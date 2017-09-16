@@ -14,12 +14,17 @@ public class LoginActivity extends AppCompatActivity {
     private EditText ecorreo, econtraseña;
     int duration = Toast.LENGTH_SHORT;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ecorreo = (EditText) findViewById(R.id.eCorreo);
         econtraseña = (EditText) findViewById(R.id.eContraseña);
+
+        Bundle extras= getIntent().getExtras();
+        correoR=extras.getString("correo");
+        contraseñaR=extras.getString("contraseña");
 
     }
 
@@ -37,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
         else{
             Context context = getApplicationContext();
             CharSequence text = "Datos incorrectos";
-
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
         }
