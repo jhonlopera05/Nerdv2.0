@@ -5,44 +5,43 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.jhonlopera.nerd30.LoginActivity">
+    tools:context="com.jhonlopera.nerd30.LoginActivity"
+    android:background="@color/lightgray">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:src="@drawable/Logo"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp" />
+        android:src="@drawable/logoapp"/>
 
     <LinearLayout
-        android:layout_width="368dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.7"
         android:orientation="vertical"
-        android:layout_margin="10sp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp">
+        android:layout_margin="10sp">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/correo"
-            android:id="@+id/eCorreo"/>
+            android:id="@+id/eCorreo" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:id="@+id/eContraseña"
-            android:hint="@string/contraseña" />
+            android:hint="@string/contraseña"
+            android:inputType="textPassword"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:id="@+id/eRepcontraseña"
-            android:hint="@string/repcontraseña" />
+            android:hint="@string/repcontraseña"
+            android:inputType="textPassword"/>
 
 
 
@@ -52,14 +51,16 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_weight="1">
 
             <Button
+                android:id="@+id/bregistrarse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/registrarse"
                 android:background="@color/black"
+                android:onClick="Registrarse"
+                android:text="@string/registrarse"
                 android:textColor="@color/white"
-                android:textSize="22sp"
-                android:onClick="Registrarse"/>
+                android:textStyle="bold"
+                android:textSize="22sp" />
         </LinearLayout>
 
 
