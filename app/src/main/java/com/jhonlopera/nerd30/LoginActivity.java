@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(this,"hola",Toast.LENGTH_SHORT);
         if (requestCode==1234 && resultCode==RESULT_OK){
             correoR=data.getExtras().getString("correo");
-            contraseñaR=data.getExtras().getString("contraseña");
+            contraseñaR=data.getExtras().getString("contraseña") ;
             Toast.makeText(this,correoR,Toast.LENGTH_SHORT);
         }
         super.onActivityResult(requestCode, resultCode, data);
