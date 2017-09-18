@@ -44,10 +44,6 @@ public class MainActivity extends AppCompatActivity {
         switch (id){
             case R.id.mPerfil:
 
-                /*Context context = getApplicationContext();
-                CharSequence text = Correop + contraseñap;
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();*/
 
                 intent = new Intent(this, PerfilActivity.class);
                 intent.putExtra("correo",correoR);
