@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (extras != null){
             correoR=extras.getString("correo");
-            contraseñaR =extras.getString("contraseña");
+            contraseñaR =extras.getString("contraseña") ;
 
             Context context = getApplicationContext();
             CharSequence text = correoR+ contraseñaR;
