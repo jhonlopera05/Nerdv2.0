@@ -22,6 +22,18 @@ public class LoginActivity extends AppCompatActivity {
         ecorreo = (EditText) findViewById(R.id.eCorreo);
         econtraseña = (EditText) findViewById(R.id.eContraseña);
 
+        Bundle extras= getIntent().getExtras();
+
+        if (extras != null){
+            correoR=extras.getString("correo");
+            contraseñaR =extras.getString("contraseña");
+
+            Context context = getApplicationContext();
+            CharSequence text = correoR+ contraseñaR;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
+
     }
 
     public void iniciar(View view) {

@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private  String CorreoR,contraseñaR;
+    private  String correoR,contraseñaR;
     int duration = Toast.LENGTH_SHORT;
 
     @Override
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         // Lo que se envia siempre s eextrae en el metodo oncreate
 
         Bundle extras= getIntent().getExtras();
-        CorreoR=extras.getString("correo");
+        correoR=extras.getString("correo");
         contraseñaR=extras.getString("contraseña");
 
     }
@@ -50,15 +50,22 @@ public class MainActivity extends AppCompatActivity {
                 toast.show();*/
 
                 intent = new Intent(this, PerfilActivity.class);
-                intent.putExtra("correo",CorreoR);
+                intent.putExtra("correo",correoR);
                 intent.putExtra("contraseña",contraseñaR);
                 startActivity(intent);
 
                 break;
             case R.id.mCerrar:
+
+                Context context = getApplicationContext();
+                CharSequence text = correoR+ contraseñaR;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+
                 intent=new Intent(this,LoginActivity.class);
-                intent.putExtra("correo",CorreoR);
+                intent.putExtra("correo",correoR);
                 intent.putExtra("contraseña",contraseñaR);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
                 break;
