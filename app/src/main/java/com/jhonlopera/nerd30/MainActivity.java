@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private  String Correop,contraseñap;
+    private  String CorreoR,contraseñaR;
     int duration = Toast.LENGTH_SHORT;
 
     @Override
@@ -23,16 +23,8 @@ public class MainActivity extends AppCompatActivity {
         // Lo que se envia siempre s eextrae en el metodo oncreate
 
         Bundle extras= getIntent().getExtras();
-        Correop=extras.getString("correo");
-        contraseñap=extras.getString("contraseña");
-
-        Context context = getApplicationContext();
-        CharSequence text = Correop + contraseñap;
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-
-
-
+        CorreoR=extras.getString("correo");
+        contraseñaR=extras.getString("contraseña");
 
     }
 
@@ -52,16 +44,21 @@ public class MainActivity extends AppCompatActivity {
         switch (id){
             case R.id.mPerfil:
 
-                Intent intent1 = new Intent(this, PerfilActivity.class);
-                intent1.putExtra("correo",Correop);
-                intent1.putExtra("contraseña",contraseñap);
-                startActivity(intent1);
+                /*Context context = getApplicationContext();
+                CharSequence text = Correop + contraseñap;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();*/
+
+                intent = new Intent(this, PerfilActivity.class);
+                intent.putExtra("correo",CorreoR);
+                intent.putExtra("contraseña",contraseñaR);
+                startActivity(intent);
 
                 break;
             case R.id.mCerrar:
                 intent=new Intent(this,LoginActivity.class);
-                intent.putExtra("correo",Correop);
-                intent.putExtra("contraseña",contraseñap);
+                intent.putExtra("correo",CorreoR);
+                intent.putExtra("contraseña",contraseñaR);
                 startActivity(intent);
                 finish();
                 break;
