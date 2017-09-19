@@ -57,17 +57,26 @@ public class LoginActivity extends AppCompatActivity {
         econtraseña = (EditText) findViewById(R.id.eContraseña);
 
         loginButton=(LoginButton) findViewById(R.id.login_button);
-
         callbackManager= CallbackManager.Factory.create();
+
+        Bundle extras= getIntent().getExtras();
+
+        if (extras != null){
+            correoR=extras.getString("correo");
+            contraseñaR =extras.getString("contraseña") ;
+
+            Context context = getApplicationContext();
+            CharSequence text = correoR+ contraseñaR;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
+
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Toast.makeText(getApplicationContext(),"Login exitosoo",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                //intent.putExtra("correo",correoR);
-                //intent.putExtra("contraseña",contraseñaR);
-                startActivity(intent);
                 finish();
             }
 
@@ -82,18 +91,6 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-
-        Bundle extras= getIntent().getExtras();
-
-        if (extras != null){
-            correoR=extras.getString("correo");
-            contraseñaR =extras.getString("contraseña") ;
-
-            Context context = getApplicationContext();
-            CharSequence text = correoR+ contraseñaR;
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-        }
 
     }
 
