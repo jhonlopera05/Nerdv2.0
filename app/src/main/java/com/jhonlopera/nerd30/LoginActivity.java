@@ -63,23 +63,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         AppEventsLogger.activateApp(LoginActivity.this);
 
-        //Generar el hash para el logueo con facebook
-        //-------------------------------------------------------------------------------
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "com.jhonlopera.nerd30",
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-
-        } catch (NoSuchAlgorithmException e) {
-
-        }
-        //-------------------------------------------------------------------------------
         ecorreo = (EditText) findViewById(R.id.eCorreo);
         econtraseña = (EditText) findViewById(R.id.eContraseña);
 
@@ -125,6 +108,10 @@ public class LoginActivity extends AppCompatActivity {
                 log="facebook";
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.putExtra("correo",correoR);
+                intent.putExtra("nombre",nombreR);
+                intent.putExtra("foto",urifoto.toString());
+                intent.putExtra("log",log);
                 startActivity(intent);
                 finish();
             }
@@ -145,8 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                 //.requestIdToken(getString(R.string.default_web_client_id))
                 .build();
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, new GoogleApiClient.OnConnectionFailedListener() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
                     @Override
                     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
                         Toast.makeText(getApplicationContext(),"Error en el loggin",Toast.LENGTH_SHORT);
@@ -168,13 +154,6 @@ public class LoginActivity extends AppCompatActivity {
         //-------------------------------------------------------------------------------------------
     }
 
-    private void signIn() {
-
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-
-
     public void iniciar(View view) {
 
         correo = ecorreo.getText().toString();
@@ -185,7 +164,6 @@ public class LoginActivity extends AppCompatActivity {
             intent.putExtra("correo",correoR);
             intent.putExtra("contraseña",contraseñaR);
             intent.putExtra("nombre",nombreR);
-            log="registro";
             startActivity(intent);
             finish();
         }
@@ -226,6 +204,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             intent.putExtra("correo",correoR);
             intent.putExtra("nombre",nombreR);
+            intent.putExtra("log",log);
             startActivity(intent);
             finish();
 
@@ -239,5 +218,11 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(LoginActivity.this, RegistroActivity.class);
         startActivityForResult(intent,1234);
     }
+    private void signIn() {
+
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
 
 }
