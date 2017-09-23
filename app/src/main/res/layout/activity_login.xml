@@ -18,7 +18,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.7"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:layout_margin="10sp">
 
@@ -40,7 +40,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
 
             <Button
                 android:layout_width="wrap_content"
@@ -53,26 +55,50 @@
                 android:onClick="iniciar"/>
         </LinearLayout>
 
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/login_button"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
-            android:textSize="22sp" />
 
-        <TextView
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="@string/registrese"
-            android:textSize="22sp"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:onClick="Registrarse"/>
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center_horizontal"
+                android:textSize="22sp"/>
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+>
+                <com.google.android.gms.common.SignInButton
+                    android:id="@+id/sign_in_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/registrese"
+                android:textSize="22sp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:onClick="Registrarse"/>
+        </LinearLayout>
+
     </LinearLayout>
 
 

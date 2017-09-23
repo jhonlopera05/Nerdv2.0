@@ -11,9 +11,9 @@ import android.widget.Toast;
 
 public class PerfilActivity extends AppCompatActivity {
 
-    private String correoR,contraseñaR;
+    private String correoR,contraseñaR,nombreR;
     int duration = Toast.LENGTH_SHORT;
-    private TextView tvcorreo,tvcontraseña;
+    private TextView tvcorreo,tvnombre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,8 @@ public class PerfilActivity extends AppCompatActivity {
         setContentView(R.layout.activity_perfil);
 
         tvcorreo=(TextView) findViewById(R.id.tNombre);
-        tvcontraseña=(TextView) findViewById(R.id.tContraseña);
+        tvnombre=(TextView) findViewById(R.id.tvCorreo);
+
 
         Bundle extras= getIntent().getExtras();
         correoR=extras.getString("correo");
@@ -33,8 +34,7 @@ public class PerfilActivity extends AppCompatActivity {
         toast.show();
 
         tvcorreo.setText("Correo: "+correoR);
-        tvcontraseña.setText("Contraseña: "+contraseñaR);
-
+        tvnombre.setText("Contraseña: "+nombreR);
 
     }
 
@@ -55,8 +55,9 @@ public class PerfilActivity extends AppCompatActivity {
 
             case R.id.mPrincipal:
                 intent = new Intent(PerfilActivity.this, MainActivity.class);
+                intent.putExtra("nombre: ",nombreR);
+                intent.putExtra("contraseña: ",contraseñaR);
                 intent.putExtra("correo",correoR);
-                intent.putExtra("contraseña",contraseñaR);
                 startActivity(intent);
                 break;
 
@@ -64,6 +65,7 @@ public class PerfilActivity extends AppCompatActivity {
                 intent=new Intent(PerfilActivity.this,LoginActivity.class);
                 intent.putExtra("correo",correoR);
                 intent.putExtra("contraseña",contraseñaR);
+                intent.putExtra("nombre: ",nombreR);
                 intent.setFlags(intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();

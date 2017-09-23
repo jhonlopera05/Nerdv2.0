@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Nerd 3.0</string>
     <string name="correo">Correo</string>
+    <string name="nombre">Nombre</string>
     <string name="contraseña">Contraseña</string>
     <string name="Iniciar">Iniciar</string>
     <string name="registrese">Registrese</string>

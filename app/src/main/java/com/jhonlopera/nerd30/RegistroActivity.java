@@ -12,8 +12,8 @@ import android.widget.Toast;
 
 public class RegistroActivity extends AppCompatActivity {
 
-    private String correo, contraseña, repcontraseña;
-    private EditText ecorreo, econtraseña, erepcontraseña;
+    private String correo, contraseña, repcontraseña,nombre;
+    private EditText ecorreo, econtraseña, erepcontraseña,enombre;
     int duration = Toast.LENGTH_SHORT;
 
 
@@ -26,11 +26,11 @@ public class RegistroActivity extends AppCompatActivity {
         ecorreo = (EditText) findViewById(R.id.eCorreo);
         econtraseña = (EditText) findViewById(R.id.eContraseña);
         erepcontraseña = (EditText) findViewById(R.id.eRepcontraseña);
+        enombre = (EditText) findViewById(R.id.eNombre);
 
     }
 
     public void Registrarse(View view) {
-
 
         if (TextUtils.isEmpty((ecorreo.getText().toString()))) {
             ecorreo.setError("Llene este espacio");
@@ -38,15 +38,19 @@ public class RegistroActivity extends AppCompatActivity {
             econtraseña.setError("Llene este espacio");
         } else if (TextUtils.isEmpty((erepcontraseña.getText().toString()))) {
             erepcontraseña.setError("Llene este espacio");
-        } else {
+        } else if (TextUtils.isEmpty((enombre.getText().toString()))) {
+            enombre.setError("Llene este espacio");
+        }else {
             correo = ecorreo.getText().toString();
             contraseña = econtraseña.getText().toString();
             repcontraseña = erepcontraseña.getText().toString();
+            nombre = enombre.getText().toString();
 
             if (contraseña.equals(repcontraseña)) {
                 Intent intent = new Intent();
                 intent.putExtra("correo", correo);
                 intent.putExtra("contraseña", contraseña);
+                intent.putExtra("nombre",nombre);
                 setResult(RESULT_OK, intent);
                 finish();
             } else {
