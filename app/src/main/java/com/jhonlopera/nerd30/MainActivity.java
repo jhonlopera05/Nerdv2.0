@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         // Lo que se envia siempre s eextrae en el metodo oncreate
 
         Bundle extras= getIntent().getExtras();
+
         if (extras != null){
             correoR=extras.getString("correo");
             contraseñaR =extras.getString("contraseña") ;

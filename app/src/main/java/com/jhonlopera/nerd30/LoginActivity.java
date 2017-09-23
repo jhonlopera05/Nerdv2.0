@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     int duration = Toast.LENGTH_SHORT;
     private LoginButton loginButton;
     private CallbackManager callbackManager;
-    int log;
+    String log;
     GoogleApiClient mGoogleApiClient;
     private int RC_SIGN_IN =1035;
 
@@ -100,18 +100,30 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton=(LoginButton) findViewById(R.id.login_button);
         callbackManager= CallbackManager.Factory.create();
-        loginButton.setReadPermissions(Arrays.asList("email"));
-
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
 
-                Profile profile=com.facebook.Profile.getCurrentProfile();
-                nombreR=profile.getName();
-                urifoto=profile.getProfilePictureUri(400,400);
-                log=1;
+                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        if (response.getError() != null) {
 
-                Toast.makeText(getApplicationContext(),nombreR,Toast.LENGTH_SHORT).show();
+                        } else {
+                            correoR = object.optString("email");
+                            nombreR = object.optString("name");
+                            Toast.makeText(getApplicationContext(),correoR,Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email,gender");
+                request.setParameters(parameters);
+                request.executeAsync();
+                Profile profile=com.facebook.Profile.getCurrentProfile();
+                urifoto=profile.getProfilePictureUri(400,400);
+                log="facebook";
+
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -173,6 +185,7 @@ public class LoginActivity extends AppCompatActivity {
             intent.putExtra("correo",correoR);
             intent.putExtra("contraseña",contraseñaR);
             intent.putExtra("nombre",nombreR);
+            log="registro";
             startActivity(intent);
             finish();
         }
@@ -209,8 +222,10 @@ public class LoginActivity extends AppCompatActivity {
             GoogleSignInAccount acct = result.getSignInAccount();
             correoR=acct.getEmail().toString();//obtener email
             nombreR=acct.getDisplayName();
-            Toast.makeText(getApplicationContext(),nombreR,Toast.LENGTH_SHORT).show();
+            log="google";
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.putExtra("correo",correoR);
+            intent.putExtra("nombre",nombreR);
             startActivity(intent);
             finish();
 
