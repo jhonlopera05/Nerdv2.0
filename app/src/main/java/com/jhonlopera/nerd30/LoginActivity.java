@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
         }
-    //--------------------------------------------------------------------
+        //--------------------------------------------------------------------
 
         loginButton=(LoginButton) findViewById(R.id.login_button);
         callbackManager= CallbackManager.Factory.create();
@@ -95,7 +95,19 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             correoR = object.optString("email");
                             nombreR = object.optString("name");
-                            Toast.makeText(getApplicationContext(),correoR,Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),correoR+nombreR,Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            Profile profile=com.facebook.Profile.getCurrentProfile();
+                            urifoto=profile.getProfilePictureUri(400,400);
+                            log="facebook";
+                            intent.putExtra("correo",correoR);
+                            intent.putExtra("nombre",nombreR);
+                            intent.putExtra("foto",urifoto.toString());
+                            intent.putExtra("log",log);
+                            startActivity(intent);
+                            finish();
+
+
                         }
                     }
                 });
@@ -103,17 +115,7 @@ public class LoginActivity extends AppCompatActivity {
                 parameters.putString("fields", "id,name,email,gender");
                 request.setParameters(parameters);
                 request.executeAsync();
-                Profile profile=com.facebook.Profile.getCurrentProfile();
-                urifoto=profile.getProfilePictureUri(400,400);
-                log="facebook";
 
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.putExtra("correo",correoR);
-                intent.putExtra("nombre",nombreR);
-                intent.putExtra("foto",urifoto);
-                intent.putExtra("log",log);
-                startActivity(intent);
-                finish();
             }
             @Override
             public void onCancel() {
@@ -133,11 +135,11 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                        Toast.makeText(getApplicationContext(),"Error en el loggin",Toast.LENGTH_SHORT);
-                    }
-                })
+            @Override
+            public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                Toast.makeText(getApplicationContext(),"Error en el loggin",Toast.LENGTH_SHORT);
+            }
+        })
 
                 //le pasamos lo que se le solicia a google (en este caso el acceso)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
@@ -207,7 +209,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             intent.putExtra("correo",correoR);
             intent.putExtra("nombre",nombreR);
-            intent.putExtra("foto",urifoto);
+            intent.putExtra("foto",urifoto.toString());
             intent.putExtra("log",log);
             startActivity(intent);
             finish();
