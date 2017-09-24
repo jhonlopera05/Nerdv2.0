@@ -46,7 +46,7 @@ import java.util.List;
 
 
 public class LoginActivity extends AppCompatActivity {
-    private String correoR,contraseñaR, correo, contraseña,nombreR;
+    private String correoR,contraseñaR, correo, contraseña,nombreR,foto;
     private Uri urifoto;
     private EditText ecorreo, econtraseña;
     int duration = Toast.LENGTH_SHORT;
@@ -83,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton=(LoginButton) findViewById(R.id.login_button);
         callbackManager= CallbackManager.Factory.create();
+        loginButton.setReadPermissions("email");
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -203,6 +204,11 @@ public class LoginActivity extends AppCompatActivity {
             nombreR=acct.getDisplayName();
             urifoto=acct.getPhotoUrl();
             log="google";
+
+
+            if ((urifoto==null)){
+                foto="http://www.combonetwork.com/img/empty_profile.png";
+            }
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             intent.putExtra("correo",correoR);
             intent.putExtra("nombre",nombreR);
