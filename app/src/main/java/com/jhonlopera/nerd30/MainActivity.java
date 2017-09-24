@@ -20,7 +20,7 @@ import com.google.android.gms.common.api.Status;
 
 public class MainActivity extends AppCompatActivity {
 
-    private  String correoR,contraseñaR,nombreR,log,url_foto;
+    private  String correoR,contraseñaR,nombreR,log,urifoto;
     int duration = Toast.LENGTH_SHORT;
     GoogleApiClient mGoogleApiClient;
 
@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         // Lo que se envia siempre s eextrae en el metodo oncreate
 
@@ -38,8 +37,9 @@ public class MainActivity extends AppCompatActivity {
             log=extras.getString("log");
 
             if (log.equals("facebook")){
+                nombreR=extras.getString("nombre");
                 correoR=extras.getString("correo");
-                url_foto=extras.getString("foto");
+                urifoto=extras.getString("foto");
                 CharSequence text = correoR +" "+ nombreR;
                 Toast.makeText(getApplicationContext(),text, Toast.LENGTH_SHORT).show();
             }
@@ -47,7 +47,10 @@ public class MainActivity extends AppCompatActivity {
             else if (log.equals("google")){
                 correoR=extras.getString("correo");
                 nombreR=extras.getString("nombre");
+                urifoto=extras.getString("foto");
                 CharSequence text = correoR +" "+ nombreR;
+
+                Toast.makeText(getApplicationContext(),text, Toast.LENGTH_SHORT).show();
             }
 
             else{
@@ -55,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 nombreR=extras.getString("nombre");
                 contraseñaR =extras.getString("contraseña") ;
                 CharSequence text = correoR +" "+ nombreR;
+                Toast.makeText(getApplicationContext(),text, Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -90,24 +94,54 @@ public class MainActivity extends AppCompatActivity {
 
         switch (id){
             case R.id.mPerfil:
+                if(log.equals("facebook")){
+                    intent = new Intent(this, PerfilActivity.class);
+                    intent.putExtra("correo",correoR);
+                    intent.putExtra("nombre",nombreR);
+                    intent.putExtra("foto",urifoto);
+                    startActivity(intent);
+                }
+                else if(log.equals("google")){
+                    intent = new Intent(this, PerfilActivity.class);
+                    intent.putExtra("correo",correoR);
+                    intent.putExtra("nombre",nombreR);
+                    intent.putExtra("foto",urifoto);
+                    startActivity(intent);
+                }
+                else {
+                        intent = new Intent(this, PerfilActivity.class);
+                        intent.putExtra("correo",correoR);
+                        intent.putExtra("nombre",nombreR);
+                        startActivity(intent);
 
-                intent = new Intent(this, PerfilActivity.class);
-                intent.putExtra("correo",correoR);
-                intent.putExtra("nombre",nombreR);
-                startActivity(intent);
+                }
 
                 break;
             case R.id.mCerrar:
 
-                signOut(); //cerrar sesion en google
-                LoginManager.getInstance().logOut();// cerrar sesion en facebook
-                intent=new Intent(this,LoginActivity.class);
-                intent.putExtra("correo",correoR);
-                intent.putExtra("contraseña",contraseñaR);
-                intent.putExtra("nombre",nombreR);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
+                if(log.equals("facebook")){
+                    intent=new Intent(this,LoginActivity.class);
+                    LoginManager.getInstance().logOut();// cerrar sesion en facebook
+                    Toast.makeText(getApplicationContext(),"Saliendo de facebook", Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                    finish();
+                }
+                else if(log.equals("google")){
+                    intent = new Intent(this, LoginActivity.class);
+                    signOut(); //cerrar sesion en google
+                    startActivity(intent);
+                    finish();
+                }
+                else {
+                        intent=new Intent(this,LoginActivity.class);
+                        intent.putExtra("correo",correoR);
+                        intent.putExtra("contraseña",contraseñaR);
+                        intent.putExtra("nombre",nombreR);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
+                }
+
                 break;
         }
         return super.onOptionsItemSelected(item);

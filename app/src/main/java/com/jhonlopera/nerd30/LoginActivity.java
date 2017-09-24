@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 intent.putExtra("correo",correoR);
                 intent.putExtra("nombre",nombreR);
-                intent.putExtra("foto",urifoto.toString());
+                intent.putExtra("foto",urifoto);
                 intent.putExtra("log",log);
                 startActivity(intent);
                 finish();
@@ -158,12 +158,14 @@ public class LoginActivity extends AppCompatActivity {
 
         correo = ecorreo.getText().toString();
         contraseña = econtraseña.getText().toString();
+        log="registro";
 
         if(correo.equals(correoR) && contraseña.equals(contraseñaR)){
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             intent.putExtra("correo",correoR);
             intent.putExtra("contraseña",contraseñaR);
             intent.putExtra("nombre",nombreR);
+            intent.putExtra("log",log);
             startActivity(intent);
             finish();
         }
@@ -182,7 +184,7 @@ public class LoginActivity extends AppCompatActivity {
             correoR=data.getExtras().getString("correo");
             contraseñaR=data.getExtras().getString("contraseña");
             nombreR=data.getExtras().getString("nombre");
-            Toast.makeText(getApplicationContext(),nombreR,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),nombreR+correoR+contraseñaR,Toast.LENGTH_SHORT).show();
         }
 
         else if (requestCode == RC_SIGN_IN) {//login con google
@@ -198,12 +200,14 @@ public class LoginActivity extends AppCompatActivity {
     private void handleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
             GoogleSignInAccount acct = result.getSignInAccount();
-            correoR=acct.getEmail().toString();//obtener email
+            correoR=acct.getEmail();//obtener email
             nombreR=acct.getDisplayName();
+            urifoto=acct.getPhotoUrl();
             log="google";
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             intent.putExtra("correo",correoR);
             intent.putExtra("nombre",nombreR);
+            intent.putExtra("foto",urifoto);
             intent.putExtra("log",log);
             startActivity(intent);
             finish();
