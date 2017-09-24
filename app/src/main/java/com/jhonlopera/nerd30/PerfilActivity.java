@@ -44,13 +44,15 @@ public class PerfilActivity extends AppCompatActivity {
         nombreR=extras.getString("nombre");
         log=extras.getString("log");
 
-        loadImageFromUrl(foto);
+        if (foto!=null) {
 
+            loadImageFromUrl(foto);
+        }
+        else{
+            foto="http://www.combonetwork.com/img/empty_profile.png";
+            loadImageFromUrl(foto);
+        }
 
-        Context context = getApplicationContext();
-        CharSequence text = correoR+ contraseñaR;
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
 
         tvcorreo.setText("Correo: "+correoR);
         tvnombre.setText("Nombre: "+nombreR);
@@ -101,11 +103,29 @@ public class PerfilActivity extends AppCompatActivity {
         switch (id){
 
             case R.id.mPrincipal:
-                intent = new Intent(PerfilActivity.this, MainActivity.class);
-                intent.putExtra("nombre: ",nombreR);
-                intent.putExtra("contraseña: ",contraseñaR);
-                intent.putExtra("correo",correoR);
-                startActivity(intent);
+                if(log.equals("facebook")){
+                    intent = new Intent(this, MainActivity.class);
+                    intent.putExtra("correo",correoR);
+                    intent.putExtra("nombre",nombreR);
+                    intent.putExtra("foto",foto);
+                    intent.putExtra("log",log);
+                    startActivity(intent);
+                }
+                else if(log.equals("google")){
+                    intent = new Intent(this, MainActivity.class);
+                    intent.putExtra("correo",correoR);
+                    intent.putExtra("nombre",nombreR);
+                    intent.putExtra("foto",foto);
+                    intent.putExtra("log",log);
+                    startActivity(intent);
+                }
+                else {
+                    intent = new Intent(this, MainActivity.class);
+                    intent.putExtra("correo",correoR);
+                    intent.putExtra("nombre",nombreR);
+                    intent.putExtra("log",log);
+                    startActivity(intent);
+                }
                 break;
 
             case R.id.mCerrar:

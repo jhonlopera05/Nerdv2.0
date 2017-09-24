@@ -106,8 +106,6 @@ public class LoginActivity extends AppCompatActivity {
                             intent.putExtra("log",log);
                             startActivity(intent);
                             finish();
-
-
                         }
                     }
                 });
@@ -115,7 +113,6 @@ public class LoginActivity extends AppCompatActivity {
                 parameters.putString("fields", "id,name,email,gender");
                 request.setParameters(parameters);
                 request.executeAsync();
-
             }
             @Override
             public void onCancel() {
